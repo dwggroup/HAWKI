@@ -146,7 +146,7 @@
 <!-- partial:index.partial.html -->
 <div class="wrapper">
   <aside>
-	<img src="/img/logo.svg" alt="">
+	<img src="/img/wbhlogo.png" alt=""><!-- TODO ordentliches Logo als svg -->
 	<h2>Willkommen zurück!</h2>
 	  <?php
 	  if (file_exists(".env")){

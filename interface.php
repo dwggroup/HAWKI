@@ -21,7 +21,7 @@ if (!isset($_SESSION['username'])) {
 <div class="wrapper">
   <div class="sidebar">
 	<div class="logo" onclick="load(this, 'chat.htm')">
-	 <img src="/img/logo.svg" alt="HAWK Logo" width="150px">
+	 <img src="/img/wbhlogo.png" alt="HAWK Logo" width="150px"><!-- TODO ordentliches Logo als svg -->
 	</div>
 	<div class="menu">
 		<details>
@@ -159,7 +159,7 @@ if (!isset($_SESSION['username'])) {
 	<div class="message me" data-role="system">
 		<div class="message-content">
 			<div class="message-icon">System</div>
-			<div class="message-text">You are a helpful assistant who works at the University of Applied Arts and Sciences in Lower Saxony.</div>
+			<div class="message-text">Du bist ein hilfreicher Assistent der Wilhelm-Büchner-Hochschule.</div>
 		</div>
 	</div>
 	  
@@ -384,10 +384,14 @@ if (!isset($_SESSION['username'])) {
 				if(chunk.indexOf('finish_reason":"stop"') > 0) return false;
 				if(chunk.indexOf('DONE') > 0) return false;
 				if(chunk.indexOf('role') > 0) return false;
-				if(chunk.length == 0) return false;
-				if(chunk != "") console.log(JSON.parse(chunk)["choices"][0]["delta"])
-				console.log(JSON.parse(chunk)["choices"][0]["delta"]);
-				document.querySelector(".message:last-child").querySelector(".message-text").innerHTML +=  escapeHTML(JSON.parse(chunk)["choices"][0]["delta"].content);
+				try {
+                    if(chunk.length === 0) return false;
+                    if(chunk !== "") console.log(JSON.parse(chunk)["choices"][0]["delta"])
+                    console.log(JSON.parse(chunk)["choices"][0]["delta"]);
+                    document.querySelector(".message:last-child").querySelector(".message-text").innerHTML +=  escapeHTML(JSON.parse(chunk)["choices"][0]["delta"].content);
+                } catch (e) {
+                    return false;
+                }
 			})
 
 			// Check if the content has code block
