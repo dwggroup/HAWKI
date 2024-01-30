@@ -44,7 +44,7 @@
 
 	  $sanitizedUsername = ldap_escape($username, "", LDAP_ESCAPE_FILTER);
 
-	  $filter = "(|(uid=$sanitizedUsername)(mail=$sanitizedUsername))";
+	  $filter = "(|(uid=$sanitizedUsername)(mail=$sanitizedUsername)(userPrincipalName=$sanitizedUsername))";
 
 	  if (($result = ldap_search($connection, $search_dn, $filter)) == false) {
 		print "Fehler: Suche im LDAP-Baum fehlgeschlagen<br>";
