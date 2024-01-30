@@ -6,6 +6,14 @@
 	exit;
   }
   if (isset($_POST["account"]) && isset($_POST["password"])) {
+	function from_env($env, $key, $defaultValue) {
+		$value = isset($env) ? $env[$key] : getenv($key);
+		if (empty($value)) {
+			$value = $defaultValue;
+		}
+		return $value;
+	}
+
 	function auth(
 	  $username,
 	  $password
@@ -24,7 +32,11 @@
 	  # Search-DN des LDAP-Baums
 	  $search_dn = isset($env) ? $env["LDAP_SEARCH_DN"] : getenv("LDAP_SEARCH_DN");
 	  
-
+	  $ldapSearchFilter = from_env($env, "LDAP_SEARCH_FILTER", '(|(uid=%1$s)(mail=%1$s))');
+	  $ldapOptProtocolVersion = (int) from_env($env, "LDAP_OPT_PROTOCOL_VERSION", 3);
+	  $ldapOptSizelimit = (int) from_env($env, "LDAP_OPT_SIZELIMIT", 0);
+	  $ldapOptReferrals = (int) from_env($env, "LDAP_OPT_REFERRALS", 0);
+	  
 	  if (empty($username) || empty($password)) {
 		print "Fehler: keine Anmeldedaten<br>";
 		return false;
@@ -35,7 +47,9 @@
 		return false;
 	  }
 	  
-	  ldap_set_option($connection, LDAP_OPT_PROTOCOL_VERSION, 3);
+	  ldap_set_option($connection, LDAP_OPT_PROTOCOL_VERSION, $ldapOptProtocolVersion);
+	  ldap_set_option($connection, LDAP_OPT_SIZELIMIT, $ldapOptSizelimit);
+	  ldap_set_option($connection, LDAP_OPT_REFERRALS, $ldapOptReferrals);
 
 	  if (($link = ldap_bind($connection, $base_dn, $bind_pw)) == false) {
 		print "Fehler: Bind fehlgeschlagen<br>";
@@ -43,8 +57,7 @@
 	  }
 
 	  $sanitizedUsername = ldap_escape($username, "", LDAP_ESCAPE_FILTER);
-
-	  $filter = "(|(uid=$sanitizedUsername)(mail=$sanitizedUsername)(userPrincipalName=$sanitizedUsername))";
+	  $filter = sprintf($ldapSearchFilter, $sanitizedUsername);
 
 	  if (($result = ldap_search($connection, $search_dn, $filter)) == false) {
 		print "Fehler: Suche im LDAP-Baum fehlgeschlagen<br>";
@@ -84,7 +97,7 @@
 		$surname = $userinfo["sn"][0];
 		$initials = substr($firstname, 0, 1) . substr($surname, 0, 1);
 	  }
-	// echo $initials; // Output: "JT"
+	  // echo $initials; // Output: "JT"
 	  $_SESSION['username'] = $initials;
 
 	  ldap_unbind($connection);
