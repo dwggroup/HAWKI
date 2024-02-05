@@ -209,9 +209,9 @@
 
 	<ul>
 	  <li><strong>Konversation</strong>Ein Chatbereich wie bei ChatGPT, für einen schnellen Einstieg in jede beliebige Aufgabe.</li>
-	  <li>
+	  <!-- <li>
 		<strong>Virtuelles Büro</strong>Gespräche mit fiktiven Expert*innen als mentales Modell, um sich in fachfremde Bereiche einzuarbeiten und gezieltere Anfragen an echte Hochschul-Expert*innen zu stellen.
-	  </li>
+	  </li> -->
 	  <li><strong>Lernraum</strong>Die Lernräume sollen helfen, die verschiedenen Unterstützungsmöglichkeiten zu verstehen und zu lernen, was einen effektiven Prompt ausmacht.</li>
 	</ul>
 	</p>

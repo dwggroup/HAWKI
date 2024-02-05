@@ -13,6 +13,12 @@ if (!isset($_SESSION['username'])) {
 	header("Location: login.php");
 	exit;
 }
+if (file_exists(".env")){
+    $env = parse_ini_file('.env');
+	$system_prompt = isset($env) ? $env["SYSTEM_PROMPT"] : getenv("SYSTEM_PROMPT");
+}
+
+
 
 ?>
 
@@ -35,7 +41,7 @@ if (!isset($_SESSION['username'])) {
 		Chat
 	  </div>
 	  
-	  <details>
+	  <!-- <details>
 		  <summary>
 			  <h3>Virtuelles Büro ⓘ</h3>
 		  </summary>
@@ -52,7 +58,7 @@ if (!isset($_SESSION['username'])) {
 			<div class="submenu-item" onclick="load(this, 'programming.htm')">Programmierung</div>
 			<div class="submenu-item" onclick="load(this, 'law.htm')">Rechtsberatung</div>
 			<div class="submenu-item" onclick="load(this, 'socialmedia.htm')">Social Media</div>
-		</div>
+		</div> -->
 		
 		<details>
 			  <summary>
@@ -159,7 +165,10 @@ if (!isset($_SESSION['username'])) {
 	<div class="message me" data-role="system">
 		<div class="message-content">
 			<div class="message-icon">System</div>
-			<div class="message-text">Du bist ein hilfreicher Assistent der Wilhelm-Büchner-Hochschule.</div>
+			<div class="message-text">
+				<?php echo htmlspecialchars($system_prompt); ?>
+			</div>
+
 		</div>
 	</div>
 	  
