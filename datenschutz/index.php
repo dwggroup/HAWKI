@@ -50,11 +50,13 @@
             <br /><h2 class="text-3xl font-semibold text-gray-700" id="m3">Hinweis zur verantwortlichen Stelle</h2><br /><br />
             Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist: 
             <p class="text-base text-gray-600">
-                Hochschule für Berufstätige Darmstadt GmbH<br />
-                Hilpertstraße 31<br />
-                64295 Darmstadt
+                Deutsche Weiterbildungsgesellschaft mbH
+<br />
+                Rotebühlstraße 77
+<br />
+                70178 Stuttgart
             </p> 
-            <p class="text-base text-gray-600"><a href="mailto:info@wb-fernstudium.de">info@wb-fernstudium.de</a><br /><a href="https://www.wb-fernstudium.de">www.wb-fernstudium.de</a></p><br />
+            <p class="text-base text-gray-600"><a href="mailto:ai@dwg.de">AI@dwg.de</a><br /><a href="https://www.dwg.de/">www.dwg.de</a></p><br />
 
             <h2 class="text-3xl font-semibold text-gray-700" id="datenschutzbeauftragter">Datenschutzbeauftragter</h2><br /><br />
                 Unseren Datenschutzbeauftragten erreichen Sie unter unserer Anschrift oder per E-Mail unter <a href="mailto:datenschutz@wb-fernstudium.de">datenschutz@wb-fernstudium.de</a><br />
