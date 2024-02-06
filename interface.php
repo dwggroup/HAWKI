@@ -22,7 +22,7 @@ if (file_exists(".env")){
 
 ?>
 
-<link rel="stylesheet" href="app.css">	
+<link rel="stylesheet" href="app.css">
 
 <div class="wrapper">
   <div class="sidebar">
@@ -40,7 +40,7 @@ if (file_exists(".env")){
 		<svg viewBox="0 0 24 24"><path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2M20 16H5.2L4 17.2V4H20V16Z" /></svg>
 		Chat
 	  </div>
-	  
+
 	  <!-- <details>
 		  <summary>
 			  <h3>Virtuelles Büro ⓘ</h3>
@@ -59,7 +59,7 @@ if (file_exists(".env")){
 			<div class="submenu-item" onclick="load(this, 'law.htm')">Rechtsberatung</div>
 			<div class="submenu-item" onclick="load(this, 'socialmedia.htm')">Social Media</div>
 		</div> -->
-		
+
 		<details>
 			  <summary>
 				  <h3>Lernraum ⓘ</h3>
@@ -78,7 +78,7 @@ if (file_exists(".env")){
 		  <div class="submenu-item" onclick="load(this, 'research.htm')">Rechercheunterstützung</div>
 		  <div class="submenu-item" onclick="load(this, 'writing.htm')">Schreibhilfe</div>
 	  </div>
-	  
+
 	  <div class="menu-item" onclick="submenu(this)">
 		<svg viewBox="0 0 24 24"><path d="M6,3A1,1 0 0,1 7,4V4.88C8.06,4.44 9.5,4 11,4C14,4 14,6 16,6C19,6 20,4 20,4V12C20,12 19,14 16,14C13,14 13,12 11,12C8,12 7,14 7,14V21H5V4A1,1 0 0,1 6,3M7,7.25V11.5C7,11.5 9,10 11,10C13,10 14,12 16,12C18,12 18,11 18,11V7.5C18,7.5 17,8 16,8C14,8 13,6 11,6C9,6 7,7.25 7,7.25Z" /></svg>
 		Organisation
@@ -91,7 +91,7 @@ if (file_exists(".env")){
 			<div class="submenu-item" onclick="load(this, 'tables.htm')">Tabellen</div>
 			<div class="submenu-item" onclick="load(this, 'timemanagement.htm')">Zeitmanagement</div>
 		</div>
-		
+
 	  <div class="menu-item" onclick="submenu(this)">
 		<svg viewBox="0 0 24 24"><path d="M15.54,3.5L20.5,8.47L19.07,9.88L14.12,4.93L15.54,3.5M3.5,19.78L10,13.31C9.9,13 9.97,12.61 10.23,12.35C10.62,11.96 11.26,11.96 11.65,12.35C12.04,12.75 12.04,13.38 11.65,13.77C11.39,14.03 11,14.1 10.69,14L4.22,20.5L14.83,16.95L18.36,10.59L13.42,5.64L7.05,9.17L3.5,19.78Z" /></svg>
 		Kreativität
@@ -104,23 +104,33 @@ if (file_exists(".env")){
 			<div class="submenu-item" onclick="load(this, 'interview.htm')">Interviewfragen</div>
 			<div class="submenu-item" onclick="load(this, 'prototyping.htm')">Prototyping</div>
 		</div>
-		
+
 	</div>
 	<div class="info">
 	  <a href="#" onclick="load(this, 'about.htm')">Über HAWK-KI</a>
 	  <a href="#" id="feedback" onclick="load(this, 'userpost.php')">Feedback</a>
+	  <hr>
+	  <?php
+	  	function printAElementHere($key) {
+			if (isset($_SESSION[$key])) {
+				echo "<a style=\"color: black\">".$_SESSION[$key]."</a>";
+			}
+		}
+		printAElementHere('name');
+		printAElementHere('email');
+	  ?>
 	  <a href="logout.php">Abmelden</a>
 	  <br>
 	  <a href="#" onclick="load(this, 'datenschutz.htm')">Datenschutz</a>
 	  <a href="/impressum" target="_blank">Impressum</a>
 	</div>
   </div>
-  
+
   <div class="main">
 	  <div></div>
 	<div class="messages">
-	
-	 
+
+
 	 <div class="limitations">
 		 <div>
 			 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -160,8 +170,8 @@ if (file_exists(".env")){
 			 </div>
 		 </div>
 	 </div>
-	 
-	 
+
+
 	<div class="message me" data-role="system">
 		<div class="message-content">
 			<div class="message-icon">System</div>
@@ -171,10 +181,10 @@ if (file_exists(".env")){
 
 		</div>
 	</div>
-	  
+
 
 	</div>
-	
+
 	<div class="input-container">
 		<div class="input">
 			<textarea class="input-field" type="text" placeholder="Hier kannst Du deine Anfrage stellen" oninput="resize(this)" onkeypress="handleKeydown(event)"></textarea>
@@ -188,7 +198,7 @@ if (file_exists(".env")){
 			Betaversion - befindet sich noch in Entwicklung
 		</div>
 	</div>
-	
+
 	<div class="userpost-container">
 		  <div class="userpost">
 			  <textarea class="userpost-field" type="text" placeholder="Hier können Sie Ihr Feedback hinterlassen" oninput="resize(this)" onkeypress="handleKeydownUserPost(event)"></textarea>
@@ -199,10 +209,10 @@ if (file_exists(".env")){
 			  </div>
 		  </div>
 	  </div>
-	  
-	  
+
+
   </div>
-  
+
   <template id="message">
 		 <div class="message">
 			 <div class="message-content">
@@ -217,7 +227,7 @@ if (file_exists(".env")){
 	 </template>
 </div>
 
-<div class="modal" onclick="modalClick(this)" id="data-protection"> 
+<div class="modal" onclick="modalClick(this)" id="data-protection">
 	<div class="modal-content">
 		<h2>Nutzungshinweis</h2>
 		<p>Bitte geben Sie keine personenbezogenen Daten ein. Wir verwenden die API von OpenAI. Das bedeutet, dass die von Ihnen eingegebenen Daten direkt an OpenAI gesendet werden. Es besteht die Möglichkeit, dass OpenAI diese Daten weiterverwendet.</p>
@@ -225,10 +235,10 @@ if (file_exists(".env")){
 	</div>
 </div>
 
-<div class="modal" onclick="modalClick(this)" id="gpt4"> 
+<div class="modal" onclick="modalClick(this)" id="gpt4">
 	<div class="modal-content">
 		<h2>Upgrade auf GPT4</h2>
-		<p>Die Hochschule stellt Ihnen jetzt GPT4 zur Verfügung. 
+		<p>Die Hochschule stellt Ihnen jetzt GPT4 zur Verfügung.
 			Komplexere Eingaben können nun besser verstanden und verarbeitet werden.
 			Sie sollten nun präzisere Antworten erhalten. Die Wartezeit auf eine Antwort kann sich geringfügig verlängern.</p>
 		<button>Bestätigen</button>
@@ -240,18 +250,18 @@ if (file_exists(".env")){
 	visualViewport.addEventListener("scroll", update);
 	addEventListener("scroll", update);
 	addEventListener("load", update);
-	
+
 	function update(event) {
 	  event.preventDefault();
 	  if (!window.visualViewport) {
 		return;
 	  }
-	
+
 	  window.scrollTo(0, 0);
 	  document.querySelector(".wrapper").style.height =
 		window.visualViewport.height + "px";
 	}
-	
+
 	function load(element, filename){
 		let messagesElement = document.querySelector(".messages");
 		fetch(`views/${filename}`)
@@ -260,7 +270,7 @@ if (file_exists(".env")){
 		  })
 		  .then((html) => {
 			messagesElement.innerHTML = html;
-			return  
+			return
 		  }).then(()=>{
 			  /*
 			  let messages = document.querySelectorAll(".message-text");
@@ -271,27 +281,27 @@ if (file_exists(".env")){
 			  if(localStorage.getItem("truth")){
 				  document.querySelector("#truth")?.remove();
 			  }
-			  
+
 			  if(filename == "userpost.php"){
 				  voteHover();
 			  }
 		  });
-		
+
 		document.querySelector(".menu-item.active")?.classList.remove("active");
 		document.querySelector(".menu-item.open")?.classList.remove("open");
 		document.querySelector(".submenu-item.active")?.classList.remove("active");
 		element.classList.add("active");
-		
+
 		element.closest(".submenu")?.previousElementSibling.classList.add("open");
 		element.closest(".submenu")?.previousElementSibling.classList.add("active");
-		
+
 		document.querySelector(".main").scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
-		
-		
-		
-		
+
+
+
+
 	}
-	
+
 	function submenu(element){
 		if(element.classList.contains('active')){
 			element.classList.remove("active");
@@ -304,35 +314,35 @@ if (file_exists(".env")){
 			element.nextElementSibling.classList.add("active");
 		}
 	}
-	
+
 	function handleKeydown(event){
 		if(event.key == "Enter" && !event.shiftKey){
 			event.preventDefault();
 			request();
-		} 
+		}
 	}
-	
+
 	function handleKeydownUserPost(event){
 		if(event.key == "Enter" && !event.shiftKey){
 			event.preventDefault();
 			send_userpost();
-		} 
+		}
 	}
-	
+
 	async function request(){
 		const messagesElement = document.querySelector(".messages");
 		const messageTemplate = document.querySelector('#message');
 		const inputField = document.querySelector(".input-field");
-		
+
 		let message = {};
 		message.role = "user";
 		message.content = inputField.value.trim();
 		inputField.value = "";
 		addMessage(message);
 		resize(inputField);
-		
+
 		document.querySelector('.limitations')?.remove();
-		
+
 		const requestObject = {};
 		requestObject.model = 'gpt-3.5-turbo';
 		requestObject.stream = true;
@@ -344,14 +354,14 @@ if (file_exists(".env")){
 			messageObject.content = messageElement.querySelector(".message-text").textContent;
 			requestObject.messages.push(messageObject);
 		})
-		
+
 		console.log(requestObject)
-		
+
 		postData('stream-api.php', requestObject)
 		.then(stream => processStream(stream))
 		.catch(error => console.error('Error:', error));
 	}
-	
+
 	async function postData(url = '', data = {}) {
 		const response = await fetch(url, {
 			method: 'POST',
@@ -360,32 +370,32 @@ if (file_exists(".env")){
 			},
 			body: JSON.stringify(data)
 		});
-	
+
 		return response.body;
 	}
-	
+
 	async function processStream(stream) {
 		const reader = stream.getReader();
-		
+
 		const messagesElement = document.querySelector(".messages");
 		const messageTemplate = document.querySelector('#message');
 		const messageElement = messageTemplate.content.cloneNode(true);
-		
+
 		messageElement.querySelector(".message-text").innerHTML = "";
 		messageElement.querySelector(".message").dataset.role = "assistant";
 		messagesElement.appendChild(messageElement);
-		
+
 		const messageText = messageElement.querySelector(".message-text");
-	
+
 		while (true) {
 			const { done, value } = await reader.read();
-	
+
 			if (done) {
 				console.log('Stream closed.');
 				document.querySelector(".message:last-child").querySelector(".message-text").innerHTML = linkify(document.querySelector(".message:last-child").querySelector(".message-text").innerHTML);
 				break;
 			}
-	
+
 			const decodedData = new TextDecoder().decode(value);
 			console.log(decodedData);
 			let chunks = decodedData.split("data: ");
@@ -418,29 +428,29 @@ if (file_exists(".env")){
               .replace(/'/g, '&#039;');
 }
 
-	
+
 	function addMessage(message){
 		const messagesElement = document.querySelector(".messages");
 		const messageTemplate = document.querySelector('#message');
 		const inputField = document.querySelector(".input-field");
 		const messageElement = messageTemplate.content.cloneNode(true);
-		
+
 		messageElement.querySelector(".message-text").innerHTML = message.content;
 		messageElement.querySelector(".message").dataset.role = message.role;
-		
+
 		if(message.role == "assistant"){
 			messageElement.querySelector(".message-icon").textContent = "AI";
 		}else{
 			messageElement.querySelector(".message-icon").textContent = '<?= $_SESSION['username'] ?>';
 			messageElement.querySelector(".message").classList.add("me");
 		}
-		
+
 		messagesElement.appendChild(messageElement);
-		
+
 		scrollToLast();
 		return messageElement;
 	}
-	
+
 	function scrollToLast(){
 		const messagesElement = document.querySelector(".messages");
 		messagesElement.scrollTo({
@@ -449,42 +459,42 @@ if (file_exists(".env")){
 		  behavior: "smooth",
 		});
 	}
-	
+
 	function resize(element) {
 		element.style.height = 'auto';
 		element.style.height = element.scrollHeight + "px";
 		element.scrollTop = element.scrollHeight;
 		element.scrollTo(element.scrollTop, (element.scrollTop + element.scrollHeight));
 	}
-	
+
 	function copyToInput(selector) {
 		document.querySelector(".input-field").value = document.querySelector(selector).textContent.trim();
 		resize(document.querySelector(".input-field"));
 	}
-	
+
 	if(localStorage.getItem("data-protection")){
 		document.querySelector("#data-protection").remove();
 	}
-	
+
 	if(localStorage.getItem("gpt4")){
 		document.querySelector("#gpt4").remove();
 	}
-	
+
 	function modalClick(element){
 		localStorage.setItem(element.id, "true")
 		element.remove();
 	}
-	
-	
+
+
 	async function send_userpost(){
 		const messagesElement = document.querySelector(".messages");
 		const messageTemplate = document.querySelector('#message');
 		const inputField = document.querySelector(".userpost-field");
-		
+
 		let message = {};
 		message.role = '<?= $_SESSION['username'] ?>';
 		message.content = inputField.value.trim();
-		
+
 		fetch('userpost.php', {
 			method: 'POST',
 			body: JSON.stringify(message),
@@ -497,7 +507,7 @@ if (file_exists(".env")){
 		})
 		.catch(error => console.error(error));
 	}
-	
+
 	async function upvote(element){
 		if(localStorage.getItem(element.dataset.id)){
 			return;
@@ -513,10 +523,10 @@ if (file_exists(".env")){
 			element.querySelector("span").textContent = parseInt(element.querySelector("span").textContent) + 1;
 		})
 		.catch(error => console.error(error));
-		
+
 		voteHover();
 	}
-	
+
 	async function downvote(element){
 		if(localStorage.getItem(element.dataset.id)){
 			return;
@@ -532,16 +542,16 @@ if (file_exists(".env")){
 			element.querySelector("span").textContent = parseInt(element.querySelector("span").textContent) + 1;
 		})
 		.catch(error => console.error(error));
-		
+
 		voteHover();
 	}
-	
+
 	async function voteHover(){
 		let messages = document.querySelectorAll(".message");
-		  
+
 		  messages.forEach((message)=>{
 			  let voteButtons = message.querySelectorAll(".vote")
-			  
+
 			  voteButtons.forEach((voteButton)=>{
 				  if(localStorage.getItem(voteButton.dataset.id)){
 					  voteButton.classList.remove("vote-hover");
@@ -549,14 +559,14 @@ if (file_exists(".env")){
 					  voteButton.classList.add("vote-hover");
 				  }
 			  })
-			  
+
 		  })
 	}
-	
+
 	document.querySelectorAll('details').forEach((D,_,A)=>{
 	  D.ontoggle =_=>{ if(D.open) A.forEach(d =>{ if(d!=D) d.open=false })}
 	})
-	
+
 	function linkify(htmlString) {
 	  const urlRegex = /((https?:\/\/|www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g;
 	  return htmlString.replace(urlRegex, '<a href="$1" target="_blank">$1</a>');
