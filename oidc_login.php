@@ -28,17 +28,35 @@ if ($testuser) {
     $oidc->setHttpUpgradeInsecureRequests(false);
 }
 
-$oidc->addScope('profile','email');
+$oidc_scopes = isset($env) ? $env["OIDC_SCOPES"] : getenv("OIDC_SCOPES");
+if (isset($oidc_scopes)) {
+    $oidc_scopes = explode(' ', $oidc_scopes);
+} else {
+    $oidc_scopes = array('openid','profile','email');
+}
+$oidc->addScope($oidc_scopes);
 $oidc->authenticate();
 
-// Set session variable username
-$firstname = $oidc->requestUserInfo('given_name');
-$surname = $oidc->requestUserInfo('family_name');
-$initials = substr($firstname, 0, 1) . substr($surname, 0, 1);
-#
-$_SESSION['initials'] = $initials;
+function set_oidc_uik_to_session($userinfo, $env, $envKey, $sessionKey) {
+    $key = isset($env) ? $env[$envKey] : getenv($envKey);
+    if (isset($key)) {
+        $_SESSION[$sessionKey] = $userinfo->{$key};
+    }
 
-$_SESSION['username'] = $oidc->requestUserInfo('email');
+    $key = $sessionKey;
+    if (isset($userinfo->{$key})) {
+        $_SESSION[$sessionKey] = $userinfo->{$key};
+    }
+}
+
+$userinfo = $oidc->requestUserInfo();
+$_SESSION['userinfo'] = $userinfo;
+$_SESSION['username'] = $userinfo->sub;
+set_oidc_uik_to_session($userinfo, $env, "OIDC_UIK_SUB", "sub");
+set_oidc_uik_to_session($userinfo, $env, "OIDC_UIK_NAME", "name");
+set_oidc_uik_to_session($userinfo, $env, "OIDC_UIK_GIVEN_NAME", "given_name");
+set_oidc_uik_to_session($userinfo, $env, "OIDC_UIK_FAMILY_NAME", "family_name");
+set_oidc_uik_to_session($userinfo, $env, "OIDC_UIK_EMAIL", "email");
 
 header("Location: interface.php");
 exit();
