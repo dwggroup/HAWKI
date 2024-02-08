@@ -236,10 +236,9 @@ if (file_exists(".env")){
 
 <div class="modal" onclick="modalClick(this)" id="gpt4"> 
 	<div class="modal-content">
-		<h2>Upgrade auf GPT4</h2>
-		<p>Die Hochschule stellt Ihnen jetzt GPT4 zur Verfügung. 
-			Komplexere Eingaben können nun besser verstanden und verarbeitet werden.
-			Sie sollten nun präzisere Antworten erhalten. Die Wartezeit auf eine Antwort kann sich geringfügig verlängern.</p>
+		<h2>GPT 3.5</h2>
+		<p>Die Hochschule stellt Ihnen GPT 3.5 zur Verfügung. 
+		</p>
 		<button>Bestätigen</button>
 	</div>
 </div>
