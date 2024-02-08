@@ -159,7 +159,13 @@
 <!-- partial:index.partial.html -->
 <div class="wrapper">
   <aside>
-	<img src="/img/wbhlogo.png" alt=""><!-- TODO ordentliches Logo als svg -->
+	<img src=
+	<?php 
+if (file_exists(".env")){
+    $env = parse_ini_file('.env');
+    $logo_image_filename = isset($env) ? $env["LOGO_IMAGE_FILENAME"] : getenv("LOGO_IMAGE_FILENAME");
+    echo "/img/" . $logo_image_filename;
+} ?> alt="">
 	<h2>Willkommen zurück!</h2>
 	  <?php
 	  if (file_exists(".env")){
