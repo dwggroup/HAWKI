@@ -237,7 +237,7 @@ if (file_exists(".env")){
 <div class="modal" onclick="modalClick(this)" id="gpt4"> 
 	<div class="modal-content">
 		<h2>GPT 3.5</h2>
-		<p>Es wird das Model gpt-3.5-turbo-0125 verwendet.   
+		<p>Es wird das Model gpt-4-0125-preview verwendet.   
 		</p>
 		<button>Bestätigen</button>
 	</div>
