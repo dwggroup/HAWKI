@@ -439,7 +439,7 @@ if (file_exists(".env")){
 		if(message.role == "assistant"){
 			messageElement.querySelector(".message-icon").textContent = "AI";
 		}else{
-			messageElement.querySelector(".message-icon").textContent = '<?= $_SESSION['username'] ?>';
+			messageElement.querySelector(".message-icon").textContent = 'Du';
 			messageElement.querySelector(".message").classList.add("me");
 		}
 		
