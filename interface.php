@@ -6,6 +6,8 @@
 
 <!-- and it's easy to individually load additional languages -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/go.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
 
 <?php
 
@@ -164,7 +166,7 @@ if (file_exists(".env")){
 					<strong>Vorsicht</strong> - Generiert gelegentlich gefährdende oder voreingenommene Informationen.
 				</div>
 				<div class="limitation-item">
-					<strong>Limitierung</strong> - Das Sprachmodell greift ausschließlich auf Wissen bis zum Jahr 2021 zu.
+					<strong>Limitierung</strong> - Das Sprachmodell greift ausschließlich auf Wissen bis zum Jahr 2023 zu.
 				</div>
 			 </div>
 		 </div>
@@ -413,6 +415,19 @@ if (file_exists(".env")){
 
 			// Check if the content has code block
 			document.querySelector(".message:last-child").querySelector(".message-text").innerHTML = document.querySelector(".message:last-child").querySelector(".message-text").innerHTML.replace(/```([\s\S]+?)```/g, '<pre><code>$1</code></pre>').replace(/\*\*.*?\*\*/g, '');;
+			// After accumulating all message content
+			let fullContent = document.querySelector(".message:last-child").querySelector(".message-text").innerHTML;
+
+			// Parse Markdown to HTML
+			let htmlContent = marked(fullContent);
+
+			// Sanitize the HTML content
+			let safeHtml = DOMPurify.sanitize(htmlContent);
+
+			// Now, set the sanitized HTML content
+			document.querySelector(".message:last-child").querySelector(".message-text").innerHTML = safeHtml;
+
+			
 			hljs.highlightAll();
 			scrollToLast();
 		}
