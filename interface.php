@@ -394,12 +394,25 @@ if (file_exists(".env")){
 
 			if (done) {
 				console.log('Stream closed.');
-				// Use Showdown to convert Markdown in the last message to HTML
-				const finalText = messageElement.querySelector(".message-text").innerHTML;
-				messageElement.querySelector(".message-text").innerHTML = converter.makeHtml(finalText);
-				linkify(messageElement.querySelector(".message-text").innerHTML); // Assuming linkify() is a function you've defined elsewhere
+
+				// Correctly target the .message-text within the last .message element
+				const lastMessageTextElement = document.querySelector(".message:last-child .message-text");
+
+				// Check if the element exists to avoid null reference errors
+				if (lastMessageTextElement) {
+					// Use Showdown to convert Markdown in the last message to HTML
+					const finalText = lastMessageTextElement.innerHTML;
+					lastMessageTextElement.innerHTML = converter.makeHtml(finalText);
+
+					// Assuming linkify() is a function you've defined elsewhere
+					// Apply linkify to the newly converted HTML
+					linkify(lastMessageTextElement.innerHTML);
+				} else {
+					console.error("Could not find the last message text element.");
+				}
 				break;
 			}
+
 
 			const decodedData = new TextDecoder().decode(value);
 			console.log(decodedData);
