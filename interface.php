@@ -6,6 +6,7 @@
 
 <!-- and it's easy to individually load additional languages -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/go.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/showdown@1.9.1/dist/showdown.min.js"></script>
 
 <?php
 
@@ -375,6 +376,9 @@ if (file_exists(".env")){
 	async function processStream(stream) {
 		const reader = stream.getReader();
 		
+		// Ensure Showdown is loaded and create a converter
+		const converter = new showdown.Converter();
+
 		const messagesElement = document.querySelector(".messages");
 		const messageTemplate = document.querySelector('#message');
 		const messageElement = messageTemplate.content.cloneNode(true);
@@ -384,16 +388,19 @@ if (file_exists(".env")){
 		messagesElement.appendChild(messageElement);
 		
 		const messageText = messageElement.querySelector(".message-text");
-	
+
 		while (true) {
 			const { done, value } = await reader.read();
-	
+
 			if (done) {
 				console.log('Stream closed.');
-				document.querySelector(".message:last-child").querySelector(".message-text").innerHTML = linkify(document.querySelector(".message:last-child").querySelector(".message-text").innerHTML);
+				// Use Showdown to convert Markdown in the last message to HTML
+				const finalText = messageElement.querySelector(".message-text").innerHTML;
+				messageElement.querySelector(".message-text").innerHTML = converter.makeHtml(finalText);
+				linkify(messageElement.querySelector(".message-text").innerHTML); // Assuming linkify() is a function you've defined elsewhere
 				break;
 			}
-	
+
 			const decodedData = new TextDecoder().decode(value);
 			console.log(decodedData);
 			let chunks = decodedData.split("data: ");
@@ -402,21 +409,23 @@ if (file_exists(".env")){
 				if(chunk.indexOf('DONE') > 0) return false;
 				if(chunk.indexOf('role') > 0) return false;
 				try {
-                    if(chunk.length === 0) return false;
-                    if(chunk !== "") console.log(JSON.parse(chunk)["choices"][0]["delta"])
-                    console.log(JSON.parse(chunk)["choices"][0]["delta"]);
-                    document.querySelector(".message:last-child").querySelector(".message-text").innerHTML +=  escapeHTML(JSON.parse(chunk)["choices"][0]["delta"].content);
-                } catch (e) {
-                    return false;
-                }
-			})
+					if(chunk.length === 0) return false;
+					const deltaContent = JSON.parse(chunk)["choices"][0]["delta"].content;
+					if(deltaContent !== "") {
+						console.log(deltaContent);
+						// Convert the Markdown chunk to HTML and append it
+						messageText.innerHTML += converter.makeHtml(deltaContent);
+					}
+				} catch (e) {
+					return false;
+				}
+			});
 
-			// Check if the content has code block
-			document.querySelector(".message:last-child").querySelector(".message-text").innerHTML = document.querySelector(".message:last-child").querySelector(".message-text").innerHTML.replace(/```([\s\S]+?)```/g, '<pre><code>$1</code></pre>');
-			hljs.highlightAll();
-			scrollToLast();
+			hljs.highlightAll(); // Assuming you have Highlight.js for code syntax highlighting
+			scrollToLast(); // Assuming scrollToLast() is a function you've defined to scroll to the last message
 		}
 	}
+
 
 	function escapeHTML(str) {
     return str.replace(/&/g, '&amp;')
