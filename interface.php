@@ -378,7 +378,7 @@ if (file_exists(".env")){
 		
 		// Ensure Showdown is loaded and create a converter
 		const converter = new showdown.Converter();
-
+		
 		const messagesElement = document.querySelector(".messages");
 		const messageTemplate = document.querySelector('#message');
 		const messageElement = messageTemplate.content.cloneNode(true);
@@ -388,56 +388,57 @@ if (file_exists(".env")){
 		messagesElement.appendChild(messageElement);
 		
 		const messageText = messageElement.querySelector(".message-text");
+		let accumulatedContent = ''; // Initialize an empty string to accumulate content
 
 		while (true) {
 			const { done, value } = await reader.read();
 
 			if (done) {
 				console.log('Stream closed.');
+				
+				// Now we process the accumulated content at once
+				if (accumulatedContent) {
+					// Convert the accumulated Markdown content to HTML
+					const htmlContent = converter.makeHtml(accumulatedContent);
+					messageText.innerHTML = htmlContent;
+					
+					// Apply linkify to the newly converted HTML, if necessary
+					// Assuming linkify() is a function you've defined elsewhere to process the innerHTML of messageText
+					linkify(messageText);
 
-				// Correctly target the .message-text within the last .message element
-				const lastMessageTextElement = document.querySelector(".message:last-child .message-text");
+					// Highlight all syntax if Highlight.js is used
+					hljs.highlightAll();
 
-				// Check if the element exists to avoid null reference errors
-				if (lastMessageTextElement) {
-					// Use Showdown to convert Markdown in the last message to HTML
-					const finalText = lastMessageTextElement.innerHTML;
-					lastMessageTextElement.innerHTML = converter.makeHtml(finalText);
-
-					// Assuming linkify() is a function you've defined elsewhere
-					// Apply linkify to the newly converted HTML
-					linkify(lastMessageTextElement.innerHTML);
-				} else {
-					console.error("Could not find the last message text element.");
+					// Scroll to the last message if necessary
+					scrollToLast(); // Assuming scrollToLast() is a function you've defined to scroll to the last message
 				}
+
 				break;
 			}
-
 
 			const decodedData = new TextDecoder().decode(value);
 			console.log(decodedData);
 			let chunks = decodedData.split("data: ");
 			chunks.forEach((chunk, index) => {
-				if(chunk.indexOf('finish_reason":"stop"') > 0) return false;
-				if(chunk.indexOf('DONE') > 0) return false;
-				if(chunk.indexOf('role') > 0) return false;
+				if (chunk.indexOf('finish_reason":"stop"') > 0) return false;
+				if (chunk.indexOf('DONE') > 0) return false;
+				if (chunk.indexOf('role') > 0) return false;
 				try {
-					if(chunk.length === 0) return false;
+					if (chunk.length === 0) return false;
 					const deltaContent = JSON.parse(chunk)["choices"][0]["delta"].content;
-					if(deltaContent !== "") {
+					if (deltaContent !== "") {
 						console.log(deltaContent);
-						// Convert the Markdown chunk to HTML and append it
-						messageText.innerHTML += converter.makeHtml(deltaContent);
+						// Accumulate the content without converting it immediately
+						accumulatedContent += deltaContent;
 					}
 				} catch (e) {
+					console.error("Error parsing chunk: ", e);
 					return false;
 				}
 			});
-
-			hljs.highlightAll(); // Assuming you have Highlight.js for code syntax highlighting
-			scrollToLast(); // Assuming scrollToLast() is a function you've defined to scroll to the last message
 		}
 	}
+
 
 
 	function escapeHTML(str) {
