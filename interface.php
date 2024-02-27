@@ -396,23 +396,22 @@ if (file_exists(".env")){
 			if (done) {
 				console.log('Stream closed.');
 				
-				// Now we process the accumulated content at once
-				if (accumulatedContent) {
+				// Retrieve the last message-text element directly here to avoid any previous reference issues
+				const finalMessageText = document.querySelector(".message:last-child .message-text");
+				
+				if (finalMessageText) {
 					// Convert the accumulated Markdown content to HTML
 					const htmlContent = converter.makeHtml(accumulatedContent);
-					messageText.innerHTML = htmlContent;
+					finalMessageText.innerHTML = htmlContent;
 					
-					// Apply linkify to the newly converted HTML, if necessary
-					// Assuming linkify() is a function you've defined elsewhere to process the innerHTML of messageText
-					linkify(messageText);
-
-					// Highlight all syntax if Highlight.js is used
+					// Apply additional transformations like linkify and highlightAll as needed
+					linkify(finalMessageText); // Assuming linkify is correctly defined to work on an element or its content
 					hljs.highlightAll();
-
-					// Scroll to the last message if necessary
-					scrollToLast(); // Assuming scrollToLast() is a function you've defined to scroll to the last message
+					scrollToLast(); // Ensure this scrolls to the correct element
+				} else {
+					console.error("Could not find the last message text element.");
 				}
-
+				
 				break;
 			}
 
