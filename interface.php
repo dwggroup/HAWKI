@@ -376,6 +376,7 @@ if (file_exists(".env")){
 	async function processStream(stream) {
 		const reader = stream.getReader();
 		const converter = new showdown.Converter();
+		messageElement.querySelector(".message").dataset.role = "assistant";
 		const messagesElement = document.querySelector(".messages");
 		const messageTemplate = document.querySelector('#message').content.cloneNode(true);
 		messagesElement.appendChild(messageTemplate);
