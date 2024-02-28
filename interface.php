@@ -375,68 +375,54 @@ if (file_exists(".env")){
 	
 	async function processStream(stream) {
 		const reader = stream.getReader();
-		
-		// Ensure Showdown is loaded and create a converter
 		const converter = new showdown.Converter();
-		
 		const messagesElement = document.querySelector(".messages");
-		const messageTemplate = document.querySelector('#message');
-		const messageElement = messageTemplate.content.cloneNode(true);
-		
-		messageElement.querySelector(".message-text").innerHTML = "";
-		messageElement.querySelector(".message").dataset.role = "assistant";
-		messagesElement.appendChild(messageElement);
-		
-		const messageText = messageElement.querySelector(".message-text");
-		let accumulatedContent = ''; // Initialize an empty string to accumulate content
+		const messageTemplate = document.querySelector('#message').content.cloneNode(true);
+		messagesElement.appendChild(messageTemplate);
+		const messageText = document.querySelector(".message:last-child .message-text");
+
+		let accumulatedContent = ''; // Variable to accumulate raw tokens
 
 		while (true) {
 			const { done, value } = await reader.read();
-
 			if (done) {
 				console.log('Stream closed.');
-				
-				// Retrieve the last message-text element directly here to avoid any previous reference issues
-				const finalMessageText = document.querySelector(".message:last-child .message-text");
-				
-				if (finalMessageText) {
-					// Convert the accumulated Markdown content to HTML
-					const htmlContent = converter.makeHtml(accumulatedContent);
-					finalMessageText.innerHTML = htmlContent;
-					
-					// Apply additional transformations like linkify and highlightAll as needed
-					linkify(finalMessageText); // Assuming linkify is correctly defined to work on an element or its content
-					hljs.highlightAll();
-					scrollToLast(); // Ensure this scrolls to the correct element
-				} else {
-					console.error("Could not find the last message text element.");
-				}
-				
+
+				// Now apply the Markdown conversion on the accumulated content
+				const finalHtmlContent = converter.makeHtml(accumulatedContent);
+				messageText.innerHTML = finalHtmlContent;
+
+				linkify(messageText); // Apply linkify on the finalHtmlContent
+				hljs.highlightAll();
+				scrollToLast();
 				break;
 			}
 
 			const decodedData = new TextDecoder().decode(value);
 			console.log(decodedData);
 			let chunks = decodedData.split("data: ");
-			chunks.forEach((chunk, index) => {
-				if (chunk.indexOf('finish_reason":"stop"') > 0) return false;
-				if (chunk.indexOf('DONE') > 0) return false;
-				if (chunk.indexOf('role') > 0) return false;
+
+			chunks.forEach(chunk => {
+				if(chunk.indexOf('finish_reason":"stop"') > 0 || chunk.indexOf('DONE') > 0 || chunk.indexOf('role') > 0) return;
+				if(chunk.length === 0) return;
+
 				try {
-					if (chunk.length === 0) return false;
 					const deltaContent = JSON.parse(chunk)["choices"][0]["delta"].content;
-					if (deltaContent !== "") {
+					if(deltaContent !== "") {
 						console.log(deltaContent);
-						// Accumulate the content without converting it immediately
+						// Accumulate the raw tokens for final processing
 						accumulatedContent += deltaContent;
+						// Immediately display the raw tokens as they are received
+						messageText.innerHTML += deltaContent;
 					}
 				} catch (e) {
-					console.error("Error parsing chunk: ", e);
-					return false;
+					console.error("Error processing chunk: ", e);
+					return;
 				}
 			});
 		}
 	}
+
 
 
 
