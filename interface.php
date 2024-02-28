@@ -128,7 +128,7 @@ if (file_exists(".env")){
   </div>
   
   <div class="main">
-	 
+	  <div></div>
 	<div class="messages">
 	
 	 
