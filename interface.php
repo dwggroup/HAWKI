@@ -374,12 +374,20 @@ if (file_exists(".env")){
 	}
 	
 	async function processStream(stream) {
+		// Assuming ".message:last-child" is meant to select the last message element. Adjust the selector as needed.
+		const messageElement = document.querySelector(".message:last-child");
+		if (!messageElement) {
+			console.error('messageElement not found');
+			return;
+		}
+		messageElement.dataset.role = "assistant";
+		
 		const reader = stream.getReader();
 		const converter = new showdown.Converter();
-		messageElement.querySelector(".message").dataset.role = "assistant";
 		const messagesElement = document.querySelector(".messages");
 		const messageTemplate = document.querySelector('#message').content.cloneNode(true);
 		messagesElement.appendChild(messageTemplate);
+		// Now we need to re-select the messageText within the newly appended messageTemplate to avoid undefined errors
 		const messageText = document.querySelector(".message:last-child .message-text");
 
 		let accumulatedContent = ''; // Variable to accumulate raw tokens
@@ -388,11 +396,8 @@ if (file_exists(".env")){
 			const { done, value } = await reader.read();
 			if (done) {
 				console.log('Stream closed.');
-
-				// Now apply the Markdown conversion on the accumulated content
 				const finalHtmlContent = converter.makeHtml(accumulatedContent);
 				messageText.innerHTML = linkify(finalHtmlContent);
-
 				hljs.highlightAll();
 				scrollToLast();
 				break;
@@ -410,9 +415,7 @@ if (file_exists(".env")){
 					const deltaContent = JSON.parse(chunk)["choices"][0]["delta"].content;
 					if(deltaContent !== "") {
 						console.log(deltaContent);
-						// Accumulate the raw tokens for final processing
 						accumulatedContent += deltaContent;
-						// Immediately display the raw tokens as they are received
 						messageText.innerHTML += deltaContent;
 					}
 				} catch (e) {
@@ -422,6 +425,8 @@ if (file_exists(".env")){
 			});
 		}
 	}
+
+
 
 
 
