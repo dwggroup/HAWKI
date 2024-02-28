@@ -6,7 +6,8 @@
 
 <!-- and it's easy to individually load additional languages -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/go.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/showdown@1.9.1/dist/showdown.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
+
 
 <?php
 
@@ -220,7 +221,6 @@ if (file_exists(".env")){
 				   KI
 			   </div>
 			   <div class="message-text">
-				   Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos incidunt, quidem soluta excepturi, ullam enim tempora.
 			   </div>
 			 </div>
 		   </div>
