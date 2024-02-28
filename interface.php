@@ -390,9 +390,8 @@ if (file_exists(".env")){
 
 				// Now apply the Markdown conversion on the accumulated content
 				const finalHtmlContent = converter.makeHtml(accumulatedContent);
-				messageText.innerHTML = finalHtmlContent;
+				messageText.innerHTML = linkify(finalHtmlContent);
 
-				linkify(messageText); // Apply linkify on the finalHtmlContent
 				hljs.highlightAll();
 				scrollToLast();
 				break;
