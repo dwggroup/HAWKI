@@ -374,20 +374,18 @@ if (file_exists(".env")){
 	}
 	
 	async function processStream(stream) {
-		// Assuming ".message:last-child" is meant to select the last message element. Adjust the selector as needed.
-		const messageElement = document.querySelector(".message:last-child");
-		if (!messageElement) {
-			console.error('messageElement not found');
-			return;
-		}
-		messageElement.dataset.role = "assistant";
-		
 		const reader = stream.getReader();
 		const converter = new showdown.Converter();
 		const messagesElement = document.querySelector(".messages");
+		// Clone the message template
 		const messageTemplate = document.querySelector('#message').content.cloneNode(true);
+
+		// Assign the role to the cloned element (assuming .message is the correct selector within your template)
+		messageTemplate.querySelector(".message").dataset.role = "assistant";
+
+		// Append the cloned template to the messages element
 		messagesElement.appendChild(messageTemplate);
-		// Now we need to re-select the messageText within the newly appended messageTemplate to avoid undefined errors
+		// Now, select the last message text for further operations
 		const messageText = document.querySelector(".message:last-child .message-text");
 
 		let accumulatedContent = ''; // Variable to accumulate raw tokens
