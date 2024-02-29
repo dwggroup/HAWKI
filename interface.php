@@ -394,7 +394,7 @@ if (file_exists(".env")){
 			if (done) {
 				console.log('Stream closed.');
             	const finalHtmlContent = marked.parse(accumulatedContent);
-				messageText.innerHTML = linkify(finalHtmlContent);
+				messageText.innerHTML = finalHtmlContent
 				hljs.highlightAll();
 				scrollToLast();
 				break;
