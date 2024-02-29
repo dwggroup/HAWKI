@@ -6,7 +6,7 @@
 
 <!-- and it's easy to individually load additional languages -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/go.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
 
 
 <?php
@@ -375,7 +375,6 @@ if (file_exists(".env")){
 	
 	async function processStream(stream) {
 		const reader = stream.getReader();
-		const converter = new showdown.Converter();
 		const messagesElement = document.querySelector(".messages");
 		// Clone the message template
 		const messageTemplate = document.querySelector('#message').content.cloneNode(true);
@@ -394,7 +393,7 @@ if (file_exists(".env")){
 			const { done, value } = await reader.read();
 			if (done) {
 				console.log('Stream closed.');
-				const finalHtmlContent = converter.makeHtml(accumulatedContent);
+            	const finalHtmlContent = marked.parse(accumulatedContent);
 				messageText.innerHTML = linkify(finalHtmlContent);
 				hljs.highlightAll();
 				scrollToLast();
