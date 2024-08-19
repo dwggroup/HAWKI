@@ -90,8 +90,8 @@
 	<body>
 		<div class="wrapper">
 			<div class="sidebar">
-				<div class="logo">
-					<img id="HAWK_logo" src="public/img/logo.svg" alt="">
+				<div>
+					<img id="HAWK_logo" src="public/img/logo.png" alt="">
 				</div>
 				<div class="menu">
 					<details>
@@ -107,7 +107,7 @@
 						<?php echo $translation["Chat"]; ?>
 					</div>
 
-					<details>
+					<details hidden>
 						<summary>
 							<h3><?php echo $translation["VirtualOffice"]; ?>
 								<svg viewBox="0 0 50 50"><path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 25 11 A 3 3 0 0 0 22 14 A 3 3 0 0 0 25 17 A 3 3 0 0 0 28 14 A 3 3 0 0 0 25 11 z M 21 21 L 21 23 L 22 23 L 23 23 L 23 36 L 22 36 L 21 36 L 21 38 L 22 38 L 23 38 L 27 38 L 28 38 L 29 38 L 29 36 L 28 36 L 27 36 L 27 21 L 26 21 L 22 21 L 21 21 z"/></svg>
@@ -115,7 +115,7 @@
 						</summary>
 						<?php echo $translation["VirtualOffice_Info"]; ?>
 					</details>
-					<div class="menu-item" onclick="submenu(this)">
+					<div class="menu-item make-dissapear" onclick="submenu(this)">
 						<svg viewBox="0 0 24 24"><path d="M13.07 10.41A5 5 0 0 0 13.07 4.59A3.39 3.39 0 0 1 15 4A3.5 3.5 0 0 1 15 11A3.39 3.39 0 0 1 13.07 10.41M5.5 7.5A3.5 3.5 0 1 1 9 11A3.5 3.5 0 0 1 5.5 7.5M7.5 7.5A1.5 1.5 0 1 0 9 6A1.5 1.5 0 0 0 7.5 7.5M16 17V19H2V17S2 13 9 13 16 17 16 17M14 17C13.86 16.22 12.67 15 9 15S4.07 16.31 4 17M15.95 13A5.32 5.32 0 0 1 18 17V19H22V17S22 13.37 15.94 13Z" /></svg>
 						Team
 					</div>
@@ -128,7 +128,7 @@
 						<div class="submenu-item" onclick="load(this, 'socialmedia.php')"><?php echo $translation["SocialMedia"]; ?></div>
 					</div>
 
-					<details>
+					<details hidden>
 						<summary>
 							<h3><?php echo $translation["LearnSpace"]; ?>
 								<svg viewBox="0 0 50 50"><path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 25 11 A 3 3 0 0 0 22 14 A 3 3 0 0 0 25 17 A 3 3 0 0 0 28 14 A 3 3 0 0 0 25 11 z M 21 21 L 21 23 L 22 23 L 23 23 L 23 36 L 22 36 L 21 36 L 21 38 L 22 38 L 23 38 L 27 38 L 28 38 L 29 38 L 29 36 L 28 36 L 27 36 L 27 21 L 26 21 L 22 21 L 21 21 z"/></svg>
@@ -136,7 +136,7 @@
 						</summary>
 						<?php echo $translation["LearnSpace_Info"]; ?>
 					</details>
-					<div class="menu-item" onclick="submenu(this)">
+					<div class="menu-item make-dissapear" onclick="submenu(this)">
 						<svg viewBox="0 0 24 24"><path d="M14.6,16.6L19.2,12L14.6,7.4L16,6L22,12L16,18L14.6,16.6M9.4,16.6L4.8,12L9.4,7.4L8,6L2,12L8,18L9.4,16.6Z" /></svg>
 						<?php echo $translation["ResearchWork"]; ?>
 					</div>
@@ -149,7 +149,7 @@
 						<div class="submenu-item" onclick="load(this, 'writing.php')"><?php echo $translation["WritingHelp"]; ?></div>
 					</div>
 
-					<div class="menu-item" onclick="submenu(this)">
+					<div class="menu-item make-dissapear" onclick="submenu(this)">
 						<svg viewBox="0 0 24 24"><path d="M6,3A1,1 0 0,1 7,4V4.88C8.06,4.44 9.5,4 11,4C14,4 14,6 16,6C19,6 20,4 20,4V12C20,12 19,14 16,14C13,14 13,12 11,12C8,12 7,14 7,14V21H5V4A1,1 0 0,1 6,3M7,7.25V11.5C7,11.5 9,10 11,10C13,10 14,12 16,12C18,12 18,11 18,11V7.5C18,7.5 17,8 16,8C14,8 13,6 11,6C9,6 7,7.25 7,7.25Z" /></svg>
 						<?php echo $translation["Organization"]; ?>
 					</div>
@@ -162,7 +162,7 @@
 						<div class="submenu-item" onclick="load(this, 'timemanagement.php')"><?php echo $translation["TimeManagement"]; ?></div>
 					</div>
 
-					<div class="menu-item" onclick="submenu(this)">
+					<div class="menu-item make-dissapear" onclick="submenu(this)">
 						<svg viewBox="0 0 24 24"><path d="M15.54,3.5L20.5,8.47L19.07,9.88L14.12,4.93L15.54,3.5M3.5,19.78L10,13.31C9.9,13 9.97,12.61 10.23,12.35C10.62,11.96 11.26,11.96 11.65,12.35C12.04,12.75 12.04,13.38 11.65,13.77C11.39,14.03 11,14.1 10.69,14L4.22,20.5L14.83,16.95L18.36,10.59L13.42,5.64L7.05,9.17L3.5,19.78Z" /></svg>
 						<?php echo $translation["Creativity"]; ?>
 					</div>
@@ -187,9 +187,9 @@
 					<a href="#" id="feedback" onclick="load(this, 'feedback_loader.php')"><?php echo $translation["FeedBack"]; ?></a>
 					<a href="logout"><?php echo $translation["SignOut"]; ?></a>
 					<br>
-					<!-- CHANGE THIS PART TO ONCLICK EVENT TO LOAD THE PAGE IN MESSAGES PANEL.
+					<!-- TODO CHANGE THIS PART TO ONCLICK EVENT TO LOAD THE PAGE IN MESSAGES PANEL.
 						DON'T FORGET TO ADD A PROPER PAGE IN VIEWS FOLDER. -->
-					<a href="dataprotection"><?php echo $translation["DataSecurity"]; ?></a>
+					<a href="#" onclick="load(this, 'dataprotection.php')"><?php echo $translation["DataSecurity"]; ?></a>
 					<a href="impressum" target="_blank"><?php echo $translation["Impressum"]; ?></a>
 				</div>
 
@@ -210,12 +210,8 @@
 							if(isset($env) ? $env["MODEL_SELECTOR_ACTIVATION"] : getenv("MODEL_SELECTOR_ACTIVATION") && $env["MODEL_SELECTOR_ACTIVATION"] === "true"){
 								echo					
 									'<select id="model-selector" onchange="OnDropdownModelSelection()">
-										<option value="gpt-4o">OpenAI GPT-4o</option>
-										<option value="meta-llama-3.1-8b-instruct">meta-llama-3.1-8b-instruct</option>
-										<option value="meta-llama-3.1-70b-instruct">meta-llama-3.1-70b-instruct</option>
-										<option value="llama-3-sauerkrautlm-70b-instruct">Llama 3 70B Sauerkraut</option>
-										<option value="mixtral-8x7b-instruct">Mixtral-8x7b-instruct</option>
-										<option value="qwen2-72b-instruct">Qwen 2 72B Instruct</option>
+										<option value="chatgpt-4o-latest">OpenAI GPT-4o</option>
+										<option value="gpt-4o-mini">OpenAI GPT-4o-mini</option>
 									</select>';
 							}
 							else{
@@ -384,14 +380,14 @@
 
 
 
-	let activeModel = "gpt-4o";
+	let activeModel = "chatgpt-4o-latest";
 	let streamAPI = "";
 	window.addEventListener('DOMContentLoaded', (event) => {
 		if(localStorage.getItem("definedModel")){
 			SwitchModel(localStorage.getItem("definedModel"));
 		}
 		else{
-			SwitchModel("gpt-4o");
+			SwitchModel("chatgpt-4o-latest");
 		}
 		document.getElementById("model-selector").value = activeModel;
     });
@@ -405,10 +401,12 @@
 	function SwitchModel(model){
 		activeModel = model;
 		switch(activeModel){
-			case('gpt-4o'):
+			case('chatgpt-4o-latest'):
 				streamAPI = "api/stream-api";
 				break;
-
+				case('gpt-4o-mini'):
+				streamAPI = "api/stream-api";
+				break;
 			case('meta-llama-3.1-8b-instruct'):
 			case('meta-llama-3.1-70b-instruct'):
 			case('llama-3-sauerkrautlm-70b-instruct'):

@@ -25,6 +25,7 @@
 
 .sidebar > * {
   padding: 2rem;
+  padding-left: 1rem;
 }
 /* NOTE: */
 .sidebar h3 {
@@ -70,6 +71,10 @@
   border-bottom: 3px solid transparent;
   color: var(--text-color);
 
+}
+
+.make-dissapear {
+  display: none !important;
 }
 
 .menu-item:hover {
