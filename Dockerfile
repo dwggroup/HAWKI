@@ -13,7 +13,7 @@ RUN apt-get update && \
     apt-get install libldap2-dev -y && \
     rm -rf /var/lib/apt/lists/* && \
     docker-php-ext-configure ldap && \
-    docker-php-ext-install ldap
+    docker-php-ext-install ldap && a2enmod rewrite
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY --from=deps app/vendor/ /var/www/html/vendor
