@@ -622,7 +622,7 @@
 		if(message.role == "assistant"){
 			messageElement.querySelector(".message-icon").textContent = "AI";
 		}else{
-			messageElement.querySelector(".message-icon").textContent = '<?= htmlspecialchars($_SESSION['username']) ?>';
+			messageElement.querySelector(".message-icon").textContent = 'Du';
 			messageElement.querySelector(".message").classList.add("me");
 		}
 
@@ -771,7 +771,7 @@
 		}
 
 		let message = {};
-		message.role = '<?= htmlspecialchars($_SESSION['username']) ?>';
+		message.role = 'Nutzer';
 		message.content = inputField.value.trim();
 
 		// const feedback_send = "../private/app/php/feedback_send.php";

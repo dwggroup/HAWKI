@@ -46,7 +46,7 @@
 
 <div class="message me" data-role="system">
    <div class="message-content">
-	   <div class="message-icon"><?php echo $translation["System"]; ?></div>
+	   <div class="message-icon">Du</div>
 	   <div class="message-text"><?php echo $translation["System_Content"]; ?></div>
    </div>
 </div>
