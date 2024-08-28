@@ -1,6 +1,10 @@
 # DISABLE DIRECTORY LISTINGS
 Options -Indexes
 
+<FilesMatch "(\.dockerignore|Dockerfile|php\.Dockerfile|\.github)">
+    Require all denied
+</FilesMatch>
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
