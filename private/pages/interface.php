@@ -210,7 +210,7 @@
 							if(isset($env) ? $env["MODEL_SELECTOR_ACTIVATION"] : getenv("MODEL_SELECTOR_ACTIVATION") && $env["MODEL_SELECTOR_ACTIVATION"] === "true"){
 								echo					
 									'<select id="model-selector" onchange="OnDropdownModelSelection()">
-										<option value="chatgpt-4o-latest">OpenAI GPT-4o</option>
+										<option value="gpt-4o-2024-08-06">OpenAI GPT-4o</option>
 										<option value="gpt-4o-mini">OpenAI GPT-4o-mini</option>
 									</select>';
 							}
@@ -380,14 +380,14 @@
 
 
 
-	let activeModel = "chatgpt-4o-latest";
+	let activeModel = "gpt-4o-2024-08-06";
 	let streamAPI = "";
 	window.addEventListener('DOMContentLoaded', (event) => {
 		if(localStorage.getItem("definedModel")){
 			SwitchModel(localStorage.getItem("definedModel"));
 		}
 		else{
-			SwitchModel("chatgpt-4o-latest");
+			SwitchModel("gpt-4o-2024-08-06");
 		}
 		document.getElementById("model-selector").value = activeModel;
     });
@@ -401,7 +401,7 @@
 	function SwitchModel(model){
 		activeModel = model;
 		switch(activeModel){
-			case('chatgpt-4o-latest'):
+			case('gpt-4o-2024-08-06'):
 				streamAPI = "api/stream-api";
 				break;
 				case('gpt-4o-mini'):
